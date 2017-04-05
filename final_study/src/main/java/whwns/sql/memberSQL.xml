@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- mybatis 의 필수 속성 : namespace ( 가상적인 패키지 ) -->
+<mapper namespace="whwns.member">
+	<insert id="memberInsert" parameterType="whwns.member.model.MemberDTO">
+		INSERT INTO final_member_table 
+		VALUES(
+			final_member_table_idx.NEXTVAL, <!-- 회원번호 -->
+			#{final_member_id},	<!-- 아이디 -->
+			#{final_member_type}, <!-- 회원타입 -->
+			#{final_member_name}, <!-- 이름 -->
+			#{final_member_pwd}, <!-- 비밀번호 -->
+			#{final_member_sex}, <!-- 성별 -->
+			#{final_member_email}, <!-- 이메일 -->
+			#{final_member_tel}, <!-- 연락처 -->
+			#{final_member_addr} <!-- 주소 -->
+		)
+	</insert>
+	
+	<delete id="memberDelete" parameterType="whwns.member.model.MemberDTO">
+		DELETE FROM final_member_table 
+		WHERE final_member_idx = #{final_member_idx}
+	</delete>
+	
+	<update id="memberUpdate" parameterType="whwns.member.model.MemberDTO">
+		UPDATE final_member_table SET 
+		final_member_name = #{final_member_name}, 
+		final_member_pwd = #{final_member_pwd}, 
+		final_member_sex = #{final_member_sex}, 
+		final_member_email = #{final_member_email}, 
+		final_member_tel = #{final_member_tel}, 
+		final_member_addr = #{final_member_addr} 
+		WHERE final_member_idx = #{final_member_idx}
+	</update>
+	
+	<select id="memberSelectAll" resultType="whwns.member.model.MemberDTO">
+		SELECT * FROM final_member_table 
+		ORDER BY final_member_idx DESC
+	</select>
+	
+	<select id="memberSelect" parameterType="whwns.common.model.FilterDTO" resultType="whwns.member.model.MemberDTO">
+		SELECT * FROM final_member_table 
+		 WHERE final_member_id = #{fvalue}
+	</select>
+	
+	<select id="memberSearch" parameterType="whwns.member.model.MemberDTO" resultType="whwns.member.model.MemberDTO">
+		SELECT * FROM final_member_table 
+		WHERE final_member_idx = #{final_member_idx}
+	</select>
+	
+</mapper>
